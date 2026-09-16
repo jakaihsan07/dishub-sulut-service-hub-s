@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Pusat Informasi Pelayanan Perizinan Angkutan Darat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0A3264;
+            --secondary-blue: #1E508A;
+            --accent-gold: #E5A93C;
+            --text-muted: #555555;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: url('assets/bg-angkutan.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px) brightness(0.75);
+            transform: scale(1.1);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed; inset: 0;
+            background: linear-gradient(
+                160deg,
+                rgba(10, 50, 100, 0.8) 0%,
+                rgba(30, 80, 138, 0.7) 50%,
+                rgba(8, 35, 70, 0.85) 100%
+            );
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%; max-width: 480px;
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: #FFFFFF;
+            padding: 18px 16px;
+            border-bottom: 4px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .header-logo {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+        }
+        .header-text {
+            flex: 1;
+            text-align: center;
+            min-width: 0;
+        }
+        .header-text h3 {
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+            text-transform: uppercase;
+        }
+        .header-text h4 {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-top: 3px;
+            opacity: 0.85;
+        }
+
+        .hero h1 {
+            color: var(--primary-blue);
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.25;
+            text-transform: uppercase;
+            text-align: center;  
+        }
+        .hero p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            line-height: 1.4;
+            text-align: center;  
+        }
+
+        .menu { padding: 8px 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+        .menu-card {
+            display: block; padding: 18px; border-radius: 12px;
+            text-decoration: none; color: inherit;
+            border: 1px solid #E0E6ED; cursor: pointer;
+            position: relative; overflow: hidden;
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            user-select: none;
+        }
+        .menu-card:active { transform: scale(0.97); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .menu-card:hover  { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .menu-card::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle, rgba(10,50,100,0.15) 10%, transparent 70%);
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .menu-card:active::after { opacity: 1; transition: opacity 0s; }
+
+        .menu-text h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+        }
+        .menu-text p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .card-drive {
+            background: #F4F7FA;
+            border-left: 5px solid var(--secondary-blue);
+        }
+        .card-wa {
+            background: #F0FFF4;
+            border-left: 5px solid #25D366;
+        }
+        .card-wa .menu-text h3 { color: #128C7E; }
+
+        .footer {
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 16px 20px;
+            font-size: 0.75rem;
+        }
+        .footer p.dept { font-weight: 600; opacity: 0.95; }
+        .footer p.sub-dept { opacity: 0.8; margin-top: 2px; margin-bottom: 8px; }
+        .footer-tagline {
+            display: inline-block;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 6px;
+            color: var(--accent-gold);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+
+        .toast {
+            position: fixed; bottom: 30px; left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(10,50,100,0.95); color: #FFF;
+            padding: 12px 24px; border-radius: 50px;
+            font-size: 0.85rem; font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            opacity: 0; transition: all 0.3s ease;
+            z-index: 9999; pointer-events: none;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @media (min-width: 768px) {
+            .container { max-width: 460px; border-radius: 20px; }
+            .header { padding: 20px 22px; }
+            .header-logo { width: 66px; height: 66px; }
+            .header-text h3 { font-size: 0.88rem; }
+            .header-text h4 { font-size: 0.75rem; }
+            .hero { padding: 28px 24px 18px; }
+            .hero h1 { font-size: 1.45rem; }
+            .menu { padding: 10px 24px 28px; gap: 18px; }
+            .menu-card { padding: 20px; }
+        }
+        @media (max-width: 360px) {
+            .header { padding: 14px 12px; gap: 8px; }
+            .header-logo { width: 46px; height: 46px; }
+            .header-text h3 { font-size: 0.72rem; }
+            .header-text h4 { font-size: 0.62rem; }
+            .hero h1 { font-size: 1.15rem; }
+            .menu { padding: 6px 14px 20px; gap: 12px; }
+            .menu-card { padding: 14px; }
+            .menu-text h3 { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header class="header">
+            <img src="assets/logo-dishub.svg" alt="Logo Dishub" class="header-logo">
+
+            <div class="header-text">
+                <h3>Dinas Perhubungan<br>Provinsi Sulawesi Utara</h3>
+                <h4>Bidang Perhubungan Darat</h4>
+            </div>
+
+            <img src="assets/logo-sulut.svg" alt="Logo Sulawesi Utara" class="header-logo">
+        </header>
+
+        <section class="hero">
+            <h1>Pusat Informasi Pelayanan<br>Perizinan Angkutan Darat</h1>
+            <p class="subtitle">Informasi lengkap & konsultasi mudah dalam satu halaman.</p>
+        </section>
+
+        <div class="menu">
+
+            <a class="menu-card card-drive"
+               href="https://drive.google.com/drive/folders/1Jw0GBxyytCJEXsaIPuY9LW0YKKvvl80l"
+               target="_blank" rel="noopener"
+               data-label="Membuka Google Drive...">
+                <div class="menu-text">
+                    <h3>Informasi &amp; Dokumen</h3>
+                    <p>Aturan angkutan umum, syarat perizinan &amp; dokumen pendukung</p>
+                </div>
+            </a>
+
+            <a class="menu-card card-wa" href="#" id="waBtn" data-label="Membuka WhatsApp...">
+                <div class="menu-text">
+                    <h3>Hubungi Petugas</h3>
+                    <p>Konsultasi langsung dengan petugas via WhatsApp</p>
+                </div>
+            </a>
+
+        </div>
+
+        <footer class="footer">
+            <p class="dept">Bidang Perhubungan Darat</p>
+            <p class="sub-dept">Dinas Perhubungan Provinsi Sulawesi Utara</p>
+            <div class="footer-tagline">Mudah Diakses &bull; Informatif &bull; Transparan</div>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+
+        const _o = 7;
+
+        const _a = [61, 57, 63, 56, 57, 59, 59, 57, 64, 57, 62, 55, 61];
+
+        const pesanWA = "Halo Petugas, saya ingin bertanya tentang perizinan angkutan darat";
+
+        function _d(arr, offset) {
+            return arr.map(c => String.fromCharCode(c - offset)).join('');
+        }
+
+        document.getElementById('waBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            const nomor = _d(_a, _o);
+            const url = 'https://wa.me/' + nomor + '?text=' + encodeURIComponent(pesanWA);
+            window.open(url, '_blank');
+        });
+
+        const toast = document.getElementById('toast');
+        document.querySelectorAll('.menu-card').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const label = this.dataset.label || 'Membuka...';
+                toast.textContent = label;
+                toast.classList.add('show');
+                if (navigator.vibrate) navigator.vibrate(30);
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            });
+        });
+    </script>
+</body>
+</html>
